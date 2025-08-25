@@ -14,6 +14,7 @@ Scope {
   property string errorMessage: ""
   property bool pamAvailable: typeof PamContext !== "undefined"
   property bool passwordEntered: false
+  property string additionalInfo: ""
 
   onCurrentTextChanged: {
     if (currentText !== "") {
@@ -31,6 +32,7 @@ Scope {
 
     root.unlockInProgress = true
     errorMessage = ""
+    additionalInfo = ""
     showFailure = false
 
     Logger.log("LockContext", "Initial start of PAM authentication for user:", pam.user)
@@ -76,6 +78,10 @@ Scope {
       if (responseRequired && passwordEntered) {
         Logger.log("LockContext", "Responding to PAM with password")
         respond(root.currentText)
+      }
+
+      if (!passwordEntered && message && !messageIsError) {
+        additionalInfo = message
       }
     }
 

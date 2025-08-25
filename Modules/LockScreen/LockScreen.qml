@@ -623,6 +623,8 @@ Loader {
 
                     NText {
                       text: {
+                        if (lockContext.additionalInfo)
+                          return lockContext.additionalInfo
                         if (lockContext.unlockInProgress)
                           return "Authenticating..."
                         if (lockContext.showFailure && lockContext.errorMessage)
