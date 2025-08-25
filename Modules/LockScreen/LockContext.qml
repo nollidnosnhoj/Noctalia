@@ -34,7 +34,6 @@ Scope {
     showFailure = false
 
     Logger.log("LockContext", "Initial start of PAM authentication for user:", pam.user)
-    Logger.log("LockContext", "passwordEntered0", passwordEntered)
     pam.start()
   }
 
@@ -74,15 +73,13 @@ Scope {
         errorMessage = message
       }
 
-      if (responseRequired) {
-        Logger.log("LockContext", "passwordEntered1", passwordEntered)
+      if (responseRequired && passwordEntered) {
         Logger.log("LockContext", "Responding to PAM with password")
         respond(root.currentText)
       }
     }
 
     onResponseRequiredChanged: {
-      Logger.log("LockContext", "passwordEntered2", passwordEntered)
       Logger.log("LockContext", "Response required changed:", responseRequired)
       if (responseRequired && root.unlockInProgress && passwordEntered) {
         Logger.log("LockContext", "Automatically responding to PAM")
