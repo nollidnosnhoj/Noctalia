@@ -42,6 +42,10 @@ Loader {
           lockScreen.scheduleUnloadAfterUnlock()
           lockContext.currentText = ""
         }
+        
+        Component.onCompleted: {
+          startPAM()
+        }
       }
 
       WlSessionLock {
